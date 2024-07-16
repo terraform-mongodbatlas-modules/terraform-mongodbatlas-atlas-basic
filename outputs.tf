@@ -38,7 +38,7 @@ output "database_users" {
   value = [for dbu in mongodbatlas_database_user.dbuser :
     {
       database_user = dbu.username
-      password = dbu.password
+      password      = dbu.password
     }
   ]
   sensitive = true

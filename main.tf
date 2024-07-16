@@ -7,7 +7,7 @@ terraform {
 }
 
 resource "random_password" "password" {
-  length = 16
+  length  = 16
   special = false
 }
 
@@ -17,7 +17,7 @@ locals {
     password = tostring(random_password.password.result)
     roles = tolist([{
       database = "admin"
-      role = "atlasAdmin"
+      role     = "atlasAdmin"
     }])
     scopes = tolist([])
   }])
