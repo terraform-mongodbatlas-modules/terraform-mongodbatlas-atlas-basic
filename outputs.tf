@@ -63,3 +63,14 @@ output "replication_specs" {
 output "connection_string" {
   value = mongodbatlas_advanced_cluster.cluster.connection_strings[0].standard_srv
 }
+
+################################################################################
+# other
+################################################################################
+
+output "database_user_connection_strings" {
+  value = {
+    for dbu in mongodbatlas_database_user.dbuser : dbu.username => "mongodb+srv://${dbu.username}:${dbu.password}@${replace(mongodbatlas_advanced_cluster.cluster.connection_strings[0].standard_srv, "mongodb+srv://", "")}/?retryWrites=true"
+  }
+  sensitive = true
+}
