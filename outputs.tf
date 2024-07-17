@@ -14,18 +14,20 @@ output "creation_timestamp" {
 # mongodbatlas_project_ip_access_list
 ################################################################################
 
-output "ips_id" {
+output "ip_ids" {
   value = [for i in mongodbatlas_project_ip_access_list.ip :
     {
-      ip_id = i.id
+      ip_id      = i.id
+      ip_address = i.ip_address
     }
   ]
 }
 
-output "cidrs_id" {
+output "cidr_ids" {
   value = [for c in mongodbatlas_project_ip_access_list.cidr :
     {
-      cidr_id = c.id
+      cidr_id    = c.id
+      cidr_block = c.cidr_block
     }
   ]
 }
