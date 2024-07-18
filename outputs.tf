@@ -1,6 +1,4 @@
-################################################################################
 # mongodbatlas_project
-################################################################################
 
 output "project_id" {
   value = mongodbatlas_project.project.id
@@ -10,9 +8,7 @@ output "creation_timestamp" {
   value = mongodbatlas_project.project.created
 }
 
-################################################################################
 # mongodbatlas_project_ip_access_list
-################################################################################
 
 output "ip_ids" {
   value = [for i in mongodbatlas_project_ip_access_list.ip :
@@ -32,23 +28,19 @@ output "cidr_ids" {
   ]
 }
 
-################################################################################
 # mongodbatlas_database_user
-################################################################################
 
 output "database_users" {
   value = [for dbu in mongodbatlas_database_user.dbuser :
     {
-      database_user = dbu.username
-      password      = dbu.password
+      username = dbu.username
+      password = dbu.password
     }
   ]
   sensitive = true
 }
 
-################################################################################
 # mongodbatlas_advanced_cluster
-################################################################################
 
 output "cluster_mongodb_version" {
   value = mongodbatlas_advanced_cluster.cluster.mongo_db_version

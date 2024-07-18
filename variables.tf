@@ -1,18 +1,14 @@
-################################################################################
 # mongodbatlas_project
-################################################################################
 
 variable "org_id" {
   type = string
 }
 variable "project_name" {
   type    = string
-  default = "Default project name"
+  default = "terraform-mongodbatlas-atlas-basic"
 }
 
-################################################################################
 # mongodbatlas_project_ip_access_list
-################################################################################
 
 variable "ip_addresses" {
   type    = list(string)
@@ -24,9 +20,7 @@ variable "cidr_blocks" {
   default = []
 }
 
-################################################################################
 # mongodbatlas_database_user
-################################################################################
 
 variable "database_users" {
   type = list(object({
@@ -44,9 +38,7 @@ variable "database_users" {
   default = []
 }
 
-################################################################################
 # mongodbatlas_advanced_cluster
-################################################################################
 
 variable "cluster_name" {
   type    = string

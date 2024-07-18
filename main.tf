@@ -1,11 +1,3 @@
-terraform {
-  required_providers {
-    mongodbatlas = {
-      source = "mongodb/mongodbatlas"
-    }
-  }
-}
-
 resource "random_password" "password" {
   length  = 16
   special = false
@@ -24,18 +16,14 @@ locals {
   database_users = length(var.database_users) == 0 ? local.database_users_default : var.database_users
 }
 
-################################################################################
 # create project
-################################################################################
 
 resource "mongodbatlas_project" "project" {
   name   = var.project_name
   org_id = var.org_id
 }
 
-################################################################################
 # assign IPs / CIDR blocks to the project
-################################################################################
 
 resource "mongodbatlas_project_ip_access_list" "ip" {
   for_each   = toset(var.ip_addresses)
@@ -51,9 +39,7 @@ resource "mongodbatlas_project_ip_access_list" "cidr" {
   comment    = "CIDR Block ${each.value}"
 }
 
-################################################################################
 # create database user
-################################################################################
 
 resource "mongodbatlas_database_user" "dbuser" {
   for_each = { for user in local.database_users :
@@ -84,9 +70,7 @@ resource "mongodbatlas_database_user" "dbuser" {
   }
 }
 
-################################################################################
 # create cluster
-################################################################################
 
 resource "mongodbatlas_advanced_cluster" "cluster" {
   project_id   = mongodbatlas_project.project.id
