@@ -58,7 +58,7 @@ variable "cluster_name" {
 }
 
 variable "provider_name" {
-  description = "Cloud service provider on which the servers are provisioned. Possible values are AWS, GCP, AZUER or TENANT."
+  description = "Cloud service provider on which the servers are provisioned. Possible values are AWS, GCP, AZURE or TENANT."
   type    = string
   default = "AWS"
 }
