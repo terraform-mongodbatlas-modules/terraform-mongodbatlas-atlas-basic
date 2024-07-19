@@ -1,7 +1,7 @@
 # mongodbatlas_project
 
 output "project_id" {
-  description = "The project id."
+  description = "The project id (e.g., 65def6ce0f722a1507105bb5)."
   value = mongodbatlas_project.project.id
 }
 

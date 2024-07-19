@@ -1,7 +1,7 @@
 # mongodbatlas_project
 
 variable "org_id" {
-  description = "The ID of the organization you want to create the project within."
+  description = "The ID of the organization you want to create the project within (e.g., 32b6e34b3d91647abb20e7b8)."
   type = string
 }
 variable "project_name" {
@@ -70,7 +70,7 @@ variable "backing_provider_name" {
 }
 
 variable "region_name" {
-  description = "Physical location of your MongoDB cluster."
+  description = "Physical location of your MongoDB cluster (more information on https://www.mongodb.com/docs/atlas/cloud-providers-regions/)."
   type    = string
   default = "US_EAST_1"
 }
