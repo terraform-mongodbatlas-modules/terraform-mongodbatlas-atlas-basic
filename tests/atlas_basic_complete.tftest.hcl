@@ -75,4 +75,29 @@ run "atlas_basic_complete" {
     condition     = mongodbatlas_advanced_cluster.cluster.name == "AzureCluster"
     error_message = "Invalid cluster name"
   }
+
+  assert {
+    condition     = length([for role in mongodbatlas_database_user.dbuser["user1"].roles : role if role.role_name == "atlasAdmin"]) > 0
+    error_message = "Invalid user role"
+  }
+
+  assert {
+    condition     = length([for role in mongodbatlas_database_user.dbuser["user1"].roles : role if role.database_name == "admin"]) > 0
+    error_message = "Invalid user database"
+  }
+
+  assert {
+    condition     = length([for scope in mongodbatlas_database_user.dbuser["user1"].scopes : scope if scope.name == "cluster1"]) > 0
+    error_message = "Invalid scope name"
+  }
+
+  assert {
+    condition     = length([for scope in mongodbatlas_database_user.dbuser["user1"].scopes : scope if scope.type == "CLUSTER"]) > 0
+    error_message = "Invalid scope type"
+  }
+
+  assert {
+    condition     = mongodbatlas_advanced_cluster.cluster.replication_specs.0.region_configs.0.analytics_specs.0.node_count == 3
+    error_message = "Invalid analytics node count"
+  }
 }

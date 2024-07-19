@@ -33,4 +33,14 @@ run "atlas_basic_empty" {
     condition     = mongodbatlas_advanced_cluster.cluster.replication_specs.0.region_configs.0.electable_specs.0.instance_size == "M10"
     error_message = "Invalid instance size"
   }
+
+  assert {
+    condition     = length([for role in mongodbatlas_database_user.dbuser["defaultUser"].roles : role if role.role_name == "atlasAdmin"]) > 0
+    error_message = "Invalid user role"
+  }
+
+  assert {
+    condition     = length([for role in mongodbatlas_database_user.dbuser["defaultUser"].roles : role if role.database_name == "admin"]) > 0
+    error_message = "Invalid user database"
+  }
 }

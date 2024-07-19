@@ -43,4 +43,14 @@ run "atlas_basic_tenant_cluster" {
     condition     = mongodbatlas_advanced_cluster.cluster.replication_specs.0.region_configs.0.backing_provider_name == "AWS"
     error_message = "Invalid backing provider"
   }
+
+  assert {
+    condition     = length([for role in mongodbatlas_database_user.dbuser["defaultUser"].roles : role if role.role_name == "atlasAdmin"]) > 0
+    error_message = "Invalid user role"
+  }
+
+  assert {
+    condition     = length([for role in mongodbatlas_database_user.dbuser["defaultUser"].roles : role if role.database_name == "admin"]) > 0
+    error_message = "Invalid user database"
+  }
 }
