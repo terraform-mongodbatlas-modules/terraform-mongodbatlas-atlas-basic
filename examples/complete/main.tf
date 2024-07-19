@@ -1,7 +1,7 @@
 module "atlas_basic" {
   source = "../../"
   org_id = var.org_id
-  
+
   project_name = "complete-example-project"
   ip_addresses = ["1.2.3.4", "6.7.8.9"]
   cidr_blocks  = ["10.1.0.0/16", "12.2.0.0/16"]
@@ -22,17 +22,17 @@ module "atlas_basic" {
           type = "CLUSTER"
         }
       ]
-    }, 
+    },
     {
       username = "user2"
       password = "4321"
       roles = [
         {
-          role = "atlasAdmin"
+          role     = "atlasAdmin"
           database = "admin"
         }
       ]
-    }, 
+    },
     {
       username = "user3"
       password = "5678"

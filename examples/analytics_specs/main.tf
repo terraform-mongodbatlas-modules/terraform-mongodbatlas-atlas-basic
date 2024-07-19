@@ -1,7 +1,7 @@
 module "atlas_basic" {
   source = "../../"
   org_id = var.org_id
-  
+
   project_name = "analytics-example-project"
 
   cluster_name  = "AnalyticsCluster"
@@ -15,6 +15,6 @@ module "atlas_basic" {
 
   analytics_specs = {
     instance_size = "M10"
-    node_count = 2
+    node_count    = 2
   }
 }

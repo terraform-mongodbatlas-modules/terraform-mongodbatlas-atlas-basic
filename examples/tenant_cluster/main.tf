@@ -1,7 +1,7 @@
 module "atlas_basic" {
   source = "../../"
   org_id = var.org_id
-  
+
   project_name = "tenant-example-project"
 
   cluster_name  = "TenantCluster"
