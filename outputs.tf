@@ -6,7 +6,7 @@ output "project_id" {
 }
 
 output "creation_timestamp" {
-  description = "The ISO-8601-formatted timestamp of when Atlas created the project."
+  description = "The ISO-8601-formatted timestamp of when Atlas created the project (e.g., 2024-07-19T08:31:20Z)."
   value = mongodbatlas_project.project.created
 }
 
