@@ -13,7 +13,7 @@ output "creation_timestamp" {
 # mongodbatlas_project_ip_access_list
 
 output "ip_ids" {
-  description = "List of objects each containing the IP access list id and its corresponding IP address."
+  description = "List of objects, each containing the IP access list id and its corresponding IP address."
   value = [for i in mongodbatlas_project_ip_access_list.ip :
     {
       ip_id      = i.id
@@ -23,7 +23,7 @@ output "ip_ids" {
 }
 
 output "cidr_ids" {
-  description = "List of objects each containing the ip access list id and its corresponding cidr block."
+  description = "List of objects, each containing the IP access list id and its corresponding cidr block."
   value = [for c in mongodbatlas_project_ip_access_list.cidr :
     {
       cidr_id    = c.id
@@ -35,7 +35,7 @@ output "cidr_ids" {
 # mongodbatlas_database_user
 
 output "database_users" {
-  description = "List of objects each containing the username and the password of the user."
+  description = "List of objects, each containing the username and the user's password."
   value = [for dbu in mongodbatlas_database_user.dbuser :
     {
       username = dbu.username
