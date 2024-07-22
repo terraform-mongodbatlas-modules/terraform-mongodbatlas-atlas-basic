@@ -1,6 +1,6 @@
 # atlas-basic - free tier cluster (tenant)
 
-This example pretends to show how the developer can use the atlas-basic module to create a free-tier cluster (TENANT).
+This example shows how the atlas-basic module can be used to create a free-tier cluster (TENANT).
 
 
 ## Usage

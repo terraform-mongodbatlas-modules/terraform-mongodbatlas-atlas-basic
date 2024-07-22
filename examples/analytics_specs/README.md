@@ -1,6 +1,6 @@
 # atlas-basic - cluster with analytics specs
 
-This example pretends to show how the developer can use the atlas-basic module to create a cluster defining its analytics_specs.
+This example shows how the atlas-basic module can be used to create a cluster defining analytic nodes.
 
 
 ## Usage
