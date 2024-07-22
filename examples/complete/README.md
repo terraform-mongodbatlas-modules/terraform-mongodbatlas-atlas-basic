@@ -1,8 +1,11 @@
 # atlas-basic - complete
 
-This example shows how the atlas-basic module can be used to create a MongoDB Atlas project, an AWS cluster for the project, several IP addresses and CIDR blocks for the project, and several database users. 
+This example shows how the atlas-basic module can be used to create:
 
-All the input variables' values are given by the developer. 
+- A MongoDB Atlas project.
+- A MongoDB Atlas cluster provisioned with AWS provider for the project.
+- Several IP addresses and CIDR blocks for the project.
+- Several database users for the project.
 
 ## Usage
 
