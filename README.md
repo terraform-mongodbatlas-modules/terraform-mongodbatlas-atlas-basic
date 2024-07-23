@@ -5,10 +5,10 @@ This Terraform module creates a basic setup on [MongoDB Atlas] [atlas].
 It creates the following resources:
 
 - A MongoDB Atlas project.
-- A MongoDB Atlas cluster provisioned with AWS, GCP or AZURE provider. It can also be a free tier (TENANT) cluster.
+- One or more database users.
 - Zero or more IP addresses.
 - Zero or more CIDR blocks.
-- One or more database users.
+- A MongoDB Atlas cluster provisioned with AWS, GCP or AZURE provider. It can also be a free tier (TENANT) cluster.
 
 You can find detailed information of the module's input and output variables in the Terraform Public Registry <LINK_TO_REGISTRY>
 
@@ -52,17 +52,17 @@ module "atlas-basic" {
 }
 ```
 
-The [examples] [Ex] folder contains detailed examples that shows how to use this module.
+The [examples] [Ex] folder contains detailed examples that show how to use this module.
 
 ## Cluster Creation Considerations 
 
-The `atlas-basic` module only supports the Replica Set cluster type. This setup is straightforward to manage and involves fewer components and configuration steps, making it ideal for users who are new to MongoDB or those needing a quick and simple deployment. Additionally, it is the most common type of cluster.
+The `atlas-basic` module only supports the Replica Set cluster type. This setup is straightforward to manage and involves fewer components and configuration steps, making it ideal for users who are new to MongoDB or those needing a quick and simple deployment. Additionally, Replica Set is the most common type of cluster.
 
 ### Provider
 
 MongoDB Atlas clusters support several cloud service providers for server provisioning. The possible values are: 
 
-- Amazon AWS (default for this module)
+- Amazon AWS (the one we chose as default for this module)
 - Google Cloud Platform
 - Microsoft Azure
 - Multi-tenant cluster (free tier cluster)
@@ -74,10 +74,6 @@ MongoDB Atlas clusters support several cloud service providers for server provis
 - For TENANT clusters:
     - Analytics nodes cannot be defined due to resource limitations and cost management considerations.
     - The instance size of the electable nodes must be either M0, M2 or M5, which are the free tier or low-cost tier MongoDB Atlas clusters.  
-
-## Authors
-
-Module is maintained by the MongoDB API Experience Integrations team.
 
 ## License
 
