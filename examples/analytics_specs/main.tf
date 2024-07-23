@@ -10,11 +10,11 @@ module "atlas_basic" {
 
   electable_specs = {
     instance_size = "M10"
-    node_count    = 5
+    node_count    = 3
   }
 
   analytics_specs = {
     instance_size = "M10"
-    node_count    = 2
+    node_count    = 1
   }
 }

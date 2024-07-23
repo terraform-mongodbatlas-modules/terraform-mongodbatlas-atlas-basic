@@ -1,3 +1,8 @@
+resource "random_password" "password" {
+  length  = 16
+  special = false
+}
+
 module "atlas_basic" {
   source = "../../"
   org_id = var.org_id
@@ -9,7 +14,7 @@ module "atlas_basic" {
   database_users = [
     {
       username = "user1"
-      password = "1234"
+      password = random_password.password.result
       roles = [
         {
           role     = "atlasAdmin"
@@ -25,7 +30,7 @@ module "atlas_basic" {
     },
     {
       username = "user2"
-      password = "4321"
+      password = random_password.password.result
       roles = [
         {
           role     = "atlasAdmin"
@@ -35,7 +40,7 @@ module "atlas_basic" {
     },
     {
       username = "user3"
-      password = "5678"
+      password = random_password.password.result
     }
   ]
 
@@ -45,6 +50,6 @@ module "atlas_basic" {
 
   electable_specs = {
     instance_size = "M10"
-    node_count    = 5
+    node_count    = 3
   }
 }
