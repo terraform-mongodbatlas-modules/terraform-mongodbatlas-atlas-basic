@@ -58,7 +58,7 @@ The [examples] [Ex] folder contains detailed examples that show how to use this 
 
 The `atlas-basic` module only supports the Replica Set cluster type. This setup is straightforward to manage and involves fewer components and configuration steps, making it ideal for users who are new to MongoDB or those needing a quick and simple deployment. Additionally, Replica Set is the most common type of cluster.
 
-### Provider
+### Supported Cloud Providers
 
 MongoDB Atlas clusters support several cloud service providers for server provisioning. The possible values are: 
 
@@ -67,13 +67,11 @@ MongoDB Atlas clusters support several cloud service providers for server provis
 - Microsoft Azure
 - Multi-tenant cluster (free tier cluster)
 
-### Considerations and Limitations
+If specifying a provider other than the default, you must also specify the region name, as not all providers support the same regions. See the reference list for [AWS] [aws-region], [GCP] [gcp-region], [AZURE] [azure-region]. 
 
-- If specifying a provider other than the default, you must also specify the region name, as not all providers support the same regions. See the reference list for [AWS] [aws-region], [GCP] [gcp-region], [AZURE] [azure-region]. 
-
-- For TENANT clusters:
-    - Analytics nodes cannot be defined due to resource limitations and cost management considerations.
-    - The instance size of the electable nodes must be either M0, M2 or M5, which are the free tier or low-cost tier MongoDB Atlas clusters.  
+For TENANT clusters:
+  - Analytics nodes cannot be defined due to resource limitations and cost management considerations.
+  - The instance size of the electable nodes must be either M0, M2 or M5, which are the free tier or low-cost tier MongoDB Atlas clusters.  
 
 ## License
 
