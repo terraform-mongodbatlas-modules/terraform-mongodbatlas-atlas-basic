@@ -10,7 +10,7 @@ It creates the following resources:
 - Zero or more CIDR blocks.
 - A MongoDB Atlas cluster provisioned with AWS, GCP or AZURE provider. It can also be a free tier (TENANT) cluster.
 
-You can find detailed information of the module's input and output variables in the Terraform Public Registry <LINK_TO_REGISTRY>
+You can find detailed information of the module's input and output variables in the [Terraform Public Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/atlas-basic/mongodbatlas/latest)
 
 ## Usage 
 

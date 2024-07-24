@@ -1,5 +1,6 @@
 module "atlas_basic" {
-  source = "../../"
+  source = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
+  version = "0.0.1"
   org_id = var.org_id
 
   project_name = "tenant-example-project"
