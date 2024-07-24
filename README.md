@@ -1,6 +1,6 @@
 # Atlas Basic Terraform Module
 
-This Terraform module creates a basic setup on [MongoDB Atlas] [atlas]. 
+This Terraform module creates a basic setup on [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database). 
 
 It creates the following resources:
 
@@ -52,7 +52,7 @@ module "atlas-basic" {
 }
 ```
 
-The [examples] [Ex] folder contains detailed examples that show how to use this module.
+The [examples](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-atlas-basic/tree/main/examples) folder contains detailed examples that show how to use this module.
 
 ## Cluster Creation Considerations 
 
@@ -67,7 +67,7 @@ MongoDB Atlas clusters support several cloud service providers for server provis
 - Microsoft Azure
 - Multi-tenant cluster (free tier cluster)
 
-If specifying a provider other than the default, you must also specify the region name, as not all providers support the same regions. See the reference list for [AWS] [aws-region], [GCP] [gcp-region], [AZURE] [azure-region]. 
+If specifying a provider other than the default, you must also specify the region name, as not all providers support the same regions. See the reference list for [AWS](https://www.mongodb.com/docs/atlas/reference/amazon-aws/), [GCP](https://www.mongodb.com/docs/atlas/reference/google-gcp/), [AZURE](https://www.mongodb.com/docs/atlas/reference/microsoft-azure/). 
 
 For TENANT clusters:
   - Analytics nodes cannot be defined due to resource limitations and cost management considerations.
@@ -75,13 +75,4 @@ For TENANT clusters:
 
 ## License
 
-See [LICENSE] [license] for full details.
-
-<!-- Links reference section -->
-[atlas]: https://www.mongodb.com/products/platform/atlas-database
-[aws-region]: https://www.mongodb.com/docs/atlas/reference/amazon-aws/
-[gcp-region]: https://www.mongodb.com/docs/atlas/reference/google-gcp/
-[azure-region]: https://www.mongodb.com/docs/atlas/reference/microsoft-azure/
-[Ex]: https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-atlas-basic/tree/main/examples
-[license]: https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-atlas-basic/blob/main/LICENSE 
-<!-- Links reference section -->
+See [LICENSE](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-atlas-basic/blob/main/LICENSE) for full details.
