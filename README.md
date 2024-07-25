@@ -10,7 +10,7 @@ It creates the following resources:
 - Zero or more CIDR blocks.
 - A MongoDB Atlas cluster provisioned with AWS, GCP or AZURE provider. It can also be a free tier (TENANT) cluster.
 
-You can find detailed information of the module's input and output variables in the Terraform Public Registry <LINK_TO_REGISTRY>
+You can find detailed information of the module's input and output variables in the [Terraform Public Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/atlas-basic/mongodbatlas/latest)
 
 ## Usage 
 
@@ -62,6 +62,8 @@ The [examples](https://github.com/terraform-mongodbatlas-modules/terraform-mongo
 | [mongodbatlas_project_ip_access_list](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/project_ip_access_list) | resource |
 | [mongodbatlas_database_user](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/database_user) | resource |
 | [mongodbatlas_advanced_cluster](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/advanced_cluster) | resource |
+
+If you want more information about the MongoDB Atlas Terraform provider, refer to the [documentation](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs) published on the Terraform Public Registry.
 
 ## Cluster Creation Considerations 
 
