@@ -63,6 +63,8 @@ The [examples](https://github.com/terraform-mongodbatlas-modules/terraform-mongo
 | [mongodbatlas_database_user](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/database_user) | resource |
 | [mongodbatlas_advanced_cluster](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/advanced_cluster) | resource |
 
+If you want more information about the MongoDB Atlas Terraform provider, refer to the [documentation](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs) published on the Terraform Public Registry.
+
 ## Cluster Creation Considerations 
 
 The `atlas-basic` module only supports the Replica Set cluster type. This setup is straightforward to manage and involves fewer components and configuration steps, making it ideal for users who are new to MongoDB or those needing a quick and simple deployment. Additionally, Replica Set is the most common type of cluster.
