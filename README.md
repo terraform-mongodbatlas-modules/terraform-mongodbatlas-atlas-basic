@@ -16,7 +16,7 @@ You can find detailed information of the module's input and output variables in 
 
 ```hcl
 module "atlas-basic" {
-  source  = "terraform-mongodbatlas-modules/atlas-basic"
+  source  = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
   version = "1.0.0"
   org_id = "32b6e34b3d91647abb20e7b8"
   project_name = "my-project"
