@@ -1,25 +1,39 @@
 # atlas-basic - free tier cluster (tenant)
 
+_Note: you can see the full source code in the [github repository](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-atlas-basic/tree/main/examples/tenant_cluster)_
+
 This example shows how you can use the atlas-basic module to create a free tier cluster (TENANT).
 
 
 ## Usage
 
-1. Set the following variables: 
+- Set the following variables: 
 
-- `org_id`: ID of Atlas organization
-- `public_key`: Atlas public key
-- `private_key`: Atlas  private key
+    - `org_id`: ID of Atlas organization
+    - `public_key`: Atlas public key
+    - `private_key`: Atlas  private key
 
-2. Run the command as in the following example:
+- Run the following command to initialize your project:
 
 ```bash
 $ terraform init
+```
+
+- Run the following command to review the execution plan:
+
+```bash
 $ terraform plan
+```
+
+- Run the following command to deploy your infrastructure:
+
+```bash
 $ terraform apply
 ```
 
 ## Resources
+
+The module creates the following resources:
 
 | Name | Type |
 |------|------|

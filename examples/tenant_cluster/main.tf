@@ -9,7 +9,7 @@ module "atlas_basic" {
   region_name   = "US_EAST_1"
 
   electable_specs = {
-    instance_size = "M2"
+    instance_size = "M0"
   }
   backing_provider_name = "AWS"
 }

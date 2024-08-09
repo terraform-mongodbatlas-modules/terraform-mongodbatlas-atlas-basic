@@ -2,12 +2,12 @@
 
 output "project_id" {
   description = "The project id (e.g., 65def6ce0f722a1507105bb5)."
-  value       = mongodbatlas_project.project.id
+  value       = data.mongodbatlas_project.project_data.id
 }
 
 output "creation_timestamp" {
   description = "The ISO-8601-formatted timestamp of when Atlas created the project (e.g., 2024-07-19T08:31:20Z)."
-  value       = mongodbatlas_project.project.created
+  value       = data.mongodbatlas_project.project_data.created
 }
 
 # mongodbatlas_project_ip_access_list
