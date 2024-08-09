@@ -19,14 +19,14 @@ locals {
 # create project
 
 resource "mongodbatlas_project" "project" {
-  count = var.use_existing_project ? 0 : 1
+  count  = var.use_existing_project ? 0 : 1
   name   = var.project_name
   org_id = var.org_id
 }
 
 data "mongodbatlas_project" "project_data" {
-  name = var.project_name
-  depends_on = [ mongodbatlas_project.project ]
+  name       = var.project_name
+  depends_on = [mongodbatlas_project.project]
 }
 
 # assign IPs / CIDR blocks to the project

@@ -25,13 +25,13 @@ run "atlas_basic_existing_project" {
   }
 
   variables {
-    project_name = "test-modules-tf-p-${run.generate_random_name.name_project}"
+    project_name   = "test-modules-tf-p-${run.generate_random_name.name_project}"
     create_project = false
-    ip_addresses  = ["1.2.3.4", "6.7.8.9"]
-    cidr_blocks   = ["10.1.0.0/16", "12.2.0.0/16"]
-    cluster_name  = "AzureCluster"
-    provider_name = "AZURE"
-    region_name   = "US_EAST_2"
+    ip_addresses   = ["1.2.3.4", "6.7.8.9"]
+    cidr_blocks    = ["10.1.0.0/16", "12.2.0.0/16"]
+    cluster_name   = "AzureCluster"
+    provider_name  = "AZURE"
+    region_name    = "US_EAST_2"
 
     database_users = [
       {
