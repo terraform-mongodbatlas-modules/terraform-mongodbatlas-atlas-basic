@@ -4,21 +4,44 @@ This Terraform module creates a basic setup on [MongoDB Atlas](https://www.mongo
 
 It creates the following resources:
 
-- A MongoDB Atlas project.
-- One or more database users.
+- A MongoDB Atlas project if the use_existing_project flag is false. If not, you can provide an existing MongoDB Atlas project.
+- One or more database users. If you do not provide any database user, the module creates a default one unless you are using an existing MongoDB Atlas project.
 - Zero or more IP addresses.
 - Zero or more CIDR blocks.
 - A MongoDB Atlas cluster provisioned with AWS, GCP or AZURE provider. It can also be a free tier (TENANT) cluster.
 
-You can find detailed information of the module's input and output variables in the [Terraform Public Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/atlas-basic/mongodbatlas/latest)
+You can find detailed information of the module's input and output variables in the [Terraform Public Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/atlas-basic/mongodbatlas/latest).
 
 ## Usage 
 
-```hcl
+Create a free tier cluster: 
+
+```terraform
+module "atlas_basic" {
+  source = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
+  version = "1.0.0"
+  org_id = var.org_id
+
+  project_name = "tenant-example-project"
+
+  cluster_name  = "TenantCluster"
+  provider_name = "TENANT"
+  region_name   = "US_EAST_1"
+
+  electable_specs = {
+    instance_size = "M0"
+  }
+  backing_provider_name = "AWS"
+}
+```
+
+Complete definition of the module's variables: 
+
+```terraform
 module "atlas-basic" {
   source  = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
   version = "1.0.0"
-  org_id = "32b6e34b3d91647abb20e7b8"
+  org_id = var.org_id
   project_name = "my-project"
   ip_addresses = ["1.2.3.4", "5.6.7.8"]
   cidr_blocks = ["10.1.0.0/16", "12.2.0.0/16"]
@@ -44,17 +67,61 @@ module "atlas-basic" {
   provider_name = "GCP"
   region_name = "US_EAST_4"
   electable_specs = {
-	instance_size = "M10"
+	  instance_size = "M10"
   }
   analytics_specs = {
-	instance_size = "M10"	
+	  instance_size = "M10"	
   }
+}
+```
+
+Create a cluster with analytics nodes:
+
+```terraform
+module "atlas-basic" {
+  source  = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
+  version = "1.0.0"
+  org_id = var.org_id
+  project_name = "my-project"
+  cluster_name = "mycluster"
+  provider_name = "AWS"
+  region_name = "US_EAST_1"
+  electable_specs = {
+	  instance_size = "M10"
+    node_count = 3
+  }
+  analytics_specs = {
+	  instance_size = "M10"	
+    node_count = 1
+  }
+}
+```
+
+Use an existing project:
+
+```terraform
+module "atlas_basic" {
+  source = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
+  org_id = var.org_id
+
+  project_name = "my-existing-project"
+  use_existing_project = true
+  cluster_name  = "TenantCluster"
+  provider_name = "TENANT"
+  region_name   = "US_EAST_1"
+
+  electable_specs = {
+    instance_size = "M0"
+  }
+  backing_provider_name = "AWS"
 }
 ```
 
 The [examples](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-atlas-basic/tree/main/examples) folder contains detailed examples that show how to use this module.
 
 ## Resources
+
+The module creates the following resources:
 
 | Name | Type |
 |------|------|

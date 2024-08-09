@@ -10,6 +10,12 @@ variable "project_name" {
   default     = "terraform-mongodbatlas-atlas-basic"
 }
 
+variable "use_existing_project" {
+  description = "Flag that determines whether the module uses an existing project or creates a new one."
+  type = bool
+  default = false
+}
+
 # mongodbatlas_project_ip_access_list
 
 variable "ip_addresses" {
