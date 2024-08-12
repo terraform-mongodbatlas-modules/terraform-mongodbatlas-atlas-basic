@@ -15,7 +15,7 @@ run "atlas_basic_empty" {
   }
 
   assert {
-    condition     = mongodbatlas_project.project.name == "terraform-mongodbatlas-atlas-basic"
+    condition     = mongodbatlas_project.project[0].name == "terraform-mongodbatlas-atlas-basic"
     error_message = "Invalid project name"
   }
 

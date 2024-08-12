@@ -13,28 +13,34 @@ locals {
     }])
     scopes = tolist([])
   }])
-  database_users = length(var.database_users) == 0 ? local.database_users_default : var.database_users
+  database_users = length(var.database_users) == 0 && !var.use_existing_project ? local.database_users_default : var.database_users
 }
 
 # create project
 
 resource "mongodbatlas_project" "project" {
+  count  = var.use_existing_project ? 0 : 1
   name   = var.project_name
   org_id = var.org_id
+}
+
+data "mongodbatlas_project" "project_data" {
+  name       = var.project_name
+  depends_on = [mongodbatlas_project.project]
 }
 
 # assign IPs / CIDR blocks to the project
 
 resource "mongodbatlas_project_ip_access_list" "ip" {
   for_each   = toset(var.ip_addresses)
-  project_id = mongodbatlas_project.project.id
+  project_id = data.mongodbatlas_project.project_data.id
   ip_address = each.value
   comment    = "IP Address ${each.value}"
 }
 
 resource "mongodbatlas_project_ip_access_list" "cidr" {
   for_each   = toset(var.cidr_blocks)
-  project_id = mongodbatlas_project.project.id
+  project_id = data.mongodbatlas_project.project_data.id
   cidr_block = each.value
   comment    = "CIDR Block ${each.value}"
 }
@@ -48,7 +54,7 @@ resource "mongodbatlas_database_user" "dbuser" {
 
   username           = each.key
   password           = each.value.password
-  project_id         = mongodbatlas_project.project.id
+  project_id         = data.mongodbatlas_project.project_data.id
   auth_database_name = "admin"
 
   dynamic "roles" {
@@ -73,7 +79,7 @@ resource "mongodbatlas_database_user" "dbuser" {
 # create cluster
 
 resource "mongodbatlas_advanced_cluster" "cluster" {
-  project_id   = mongodbatlas_project.project.id
+  project_id   = data.mongodbatlas_project.project_data.id
   name         = var.cluster_name
   cluster_type = "REPLICASET"
   replication_specs {

@@ -10,6 +10,12 @@ variable "project_name" {
   default     = "terraform-mongodbatlas-atlas-basic"
 }
 
+variable "use_existing_project" {
+  description = "Flag that determines whether the module uses an existing project or creates a new one."
+  type        = bool
+  default     = false
+}
+
 # mongodbatlas_project_ip_access_list
 
 variable "ip_addresses" {
@@ -32,7 +38,8 @@ variable "database_users" {
                   -username: Username for authenticating to MongoDB.
                   -password: User's initial password.
                   -roles: List of user's roles and the databases / collections on which the roles apply.
-                  -scopes: Array of clusters and Atlas Data Lakes that this user has access to. If omitted, Atlas grants the user access to all the clusters and Atlas Data Lakes in the project by default. 
+                  -scopes: Array of clusters and Atlas Data Lakes that this user has access to. If omitted, Atlas grants the user access to all the clusters and Atlas Data Lakes in the project by default.
+                  If you do not provide any database user, the module creates a default one unless you are using an existing MongoDB Atlas project. 
                 EOT
   type = list(object({
     username = string
