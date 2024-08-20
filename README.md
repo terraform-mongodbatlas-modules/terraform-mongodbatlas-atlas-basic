@@ -19,7 +19,6 @@ Create a free tier cluster:
 ```terraform
 module "atlas_basic" {
   source = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
-  version = "1.0.0"
   org_id = var.org_id
 
   project_name = "tenant-example-project"
@@ -40,7 +39,6 @@ Complete definition of the module's variables:
 ```terraform
 module "atlas-basic" {
   source  = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
-  version = "1.0.0"
   org_id = var.org_id
   project_name = "my-project"
   ip_addresses = ["1.2.3.4", "5.6.7.8"]
@@ -80,7 +78,6 @@ Create a cluster with analytics nodes:
 ```terraform
 module "atlas-basic" {
   source  = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
-  version = "1.0.0"
   org_id = var.org_id
   project_name = "my-project"
   cluster_name = "mycluster"
