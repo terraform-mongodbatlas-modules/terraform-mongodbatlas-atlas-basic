@@ -20,7 +20,7 @@ run "atlas_basic_tenant_cluster" {
     provider_name = "TENANT"
     region_name   = "US_EAST_1"
     electable_specs = {
-      instance_size = "M2"
+      instance_size = "M0"
     }
   }
 
@@ -35,7 +35,7 @@ run "atlas_basic_tenant_cluster" {
   }
 
   assert {
-    condition     = mongodbatlas_advanced_cluster.cluster.replication_specs.0.region_configs.0.electable_specs.0.instance_size == "M2"
+    condition     = mongodbatlas_advanced_cluster.cluster.replication_specs.0.region_configs.0.electable_specs.0.instance_size == "M0"
     error_message = "Invalid instance size"
   }
 
