@@ -146,7 +146,7 @@ If specifying a provider other than the default, you must also specify the regio
 
 For TENANT clusters:
   - Analytics nodes cannot be defined due to resource limitations and cost management considerations.
-  - The instance size of the electable nodes must be either M0, M2 or M5, which are the free tier or low-cost tier MongoDB Atlas clusters.  
+The instance size of the electable nodes must be M0 which is the free tier of MongoDB Atlas clusters.
 
 ## License
 

@@ -83,7 +83,7 @@ variable "region_name" {
 }
 
 variable "electable_specs" {
-  description = "Hardware specifications for electable nodes in the region. If the provider is TENANT, instance size should be M5 or lower."
+  description = "Hardware specifications for electable nodes in the region. If the provider is TENANT, instance size must be M0."
   type = object({
     instance_size = string
     node_count    = optional(number, 3)
