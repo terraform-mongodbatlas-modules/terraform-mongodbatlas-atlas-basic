@@ -10,6 +10,8 @@ It creates the following resources:
 
 ## MongoDB Cluster
 
+A MongoDB Atlas cluster provisioned with AWS, GCP or AZURE provider. It can also be a free tier (TENANT) cluster.
+
 ## Database user
 
 Use the `database_users` field to define a list of database user allowed to connect to your MongoDB cluster using [SCRAM](https://www.mongodb.com/docs/manual/core/security-scram/) authentication
@@ -56,21 +58,21 @@ module "atlas-basic" {
   ip_addresses = ["1.2.3.4", "5.6.7.8"]
   cidr_blocks = ["10.1.0.0/16", "12.2.0.0/16"]
   database_users = [
-   {
- username = "user1"
- password = "1234"
- roles = [
-  {
-   role = "atlasAdmin"
-   database = "admin"
+    {
+      username = "user1"
+      password = "1234"
+      roles = [
+        {
+          role = "atlasAdmin"
+          database = "admin"
         }
- ]
- scopes = [
-  {
-   name = "cluster1"
-   type = "CLUSTER"
+      ]
+      scopes = [
+        {
+          name = "cluster1"
+          type = "CLUSTER"
         }
- ]
+      ]
     }
   ]
   cluster_name = "mycluster"
