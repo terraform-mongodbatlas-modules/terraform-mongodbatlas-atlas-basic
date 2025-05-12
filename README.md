@@ -24,7 +24,7 @@ If you do not provide any database user, the module creates a default user and p
 
 ## Access Lists
 
-Use `ip_addresses` or `cidr_blocks` to allow connecting to your MongoDB Cluster from the provided addresses.
+Use `ip_addresses` or `cidr_blocks` to allow connecting to your Atlas cluster from the provided addresses.
 
 ## Usage
 
