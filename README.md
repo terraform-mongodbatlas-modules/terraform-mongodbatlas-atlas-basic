@@ -2,6 +2,8 @@
 
 This Terraform module creates a basic setup on [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database).
 
+You can find detailed information of the module's input and output variables in the [Terraform Public Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/atlas-basic/mongodbatlas/latest).
+
 It creates the following resources:
 
 ## Atlas Project
@@ -23,8 +25,6 @@ If you do not provide any database user, the module creates a default user and p
 ## Access Lists
 
 Use `ip_addresses` or `cidr_blocks` to allow connecting to your MongoDB Cluster from the provided addresses.
-
-You can find detailed information of the module's input and output variables in the [Terraform Public Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/atlas-basic/mongodbatlas/latest).
 
 ## Usage
 
