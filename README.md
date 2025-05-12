@@ -6,7 +6,7 @@ It creates the following resources:
 
 ## Atlas Project
 
-`project_name` by default will try to create a new Atlas project. To resue an exsting project set `use_existing_project` to `true`
+`project_name` by default will try to create a new Atlas project. To reuse an exsting project set `use_existing_project` to `true`
 
 ## MongoDB Cluster
 
