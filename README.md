@@ -22,7 +22,7 @@ If you do not provide any database user, the module creates a default user and p
 
 ## Access Lists
 
-Use `ip_addresses` or `cidr_blocks` to allow connecting to your MongoDB Cluster from the provided addresses.
+Use `ip_addresses` or `cidr_blocks` to allow connecting to your Atlas cluster from the provided addresses.
 
 You can find detailed information of the module's input and output variables in the [Terraform Public Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/atlas-basic/mongodbatlas/latest).
 
