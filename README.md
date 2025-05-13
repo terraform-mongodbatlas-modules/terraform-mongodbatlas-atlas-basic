@@ -1,20 +1,34 @@
 # Atlas Basic Terraform Module
 
-This Terraform module creates a basic setup on [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database). 
-
-It creates the following resources:
-
-- A MongoDB Atlas project if the use_existing_project flag is false. If not, you can provide an existing MongoDB Atlas project.
-- One or more database users. If you do not provide any database user, the module creates a default one unless you are using an existing MongoDB Atlas project.
-- Zero or more IP addresses.
-- Zero or more CIDR blocks.
-- A MongoDB Atlas cluster provisioned with AWS, GCP or AZURE provider. It can also be a free tier (TENANT) cluster.
+This Terraform module creates a basic setup on [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database).
 
 You can find detailed information of the module's input and output variables in the [Terraform Public Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/atlas-basic/mongodbatlas/latest).
 
-## Usage 
+It creates the following resources:
 
-Create a free tier cluster: 
+## Atlas Project
+
+`project_name` by default will try to create a new Atlas project. To reuse an exsting project set `use_existing_project` to `true`
+
+## MongoDB Cluster
+
+A MongoDB Atlas cluster provisioned with AWS, GCP or AZURE provider. It can also be a free tier (TENANT) cluster.
+
+## Database user
+
+Use the `database_users` field to define a list of database user allowed to connect to your MongoDB cluster using [SCRAM](https://www.mongodb.com/docs/manual/core/security-scram/) authentication
+
+If you do not provide any database user, the module creates a default user and password, see [`random_password` resource](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password).
+
+**Note:** when setting `use_existing_project` to `true` no users will be created.
+
+## Access Lists
+
+Use `ip_addresses` or `cidr_blocks` to allow connecting to your Atlas cluster from the provided addresses.
+
+## Usage
+
+### Free tier cluster
 
 ```terraform
 module "atlas_basic" {
@@ -34,46 +48,7 @@ module "atlas_basic" {
 }
 ```
 
-Complete definition of the module's variables: 
-
-```terraform
-module "atlas-basic" {
-  source  = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
-  org_id = var.org_id
-  project_name = "my-project"
-  ip_addresses = ["1.2.3.4", "5.6.7.8"]
-  cidr_blocks = ["10.1.0.0/16", "12.2.0.0/16"]
-  database_users = [
-  	{
-	username = "user1"
-	password = "1234"
-	roles = [
-		{
-			role = "atlasAdmin"
-			database = "admin"
-        }
-	]
-	scopes = [
-		{
-			name = "cluster1"
-			type = "CLUSTER"
-        }
-	]
-    }
-  ]
-  cluster_name = "mycluster"
-  provider_name = "GCP"
-  region_name = "US_EAST_4"
-  electable_specs = {
-	  instance_size = "M10"
-  }
-  analytics_specs = {
-	  instance_size = "M10"	
-  }
-}
-```
-
-Create a cluster with analytics nodes:
+### Cluster with analytics nodes
 
 ```terraform
 module "atlas-basic" {
@@ -84,17 +59,17 @@ module "atlas-basic" {
   provider_name = "AWS"
   region_name = "US_EAST_1"
   electable_specs = {
-	  instance_size = "M10"
+   instance_size = "M10"
     node_count = 3
   }
   analytics_specs = {
-	  instance_size = "M10"	
+   instance_size = "M10"
     node_count = 1
   }
 }
 ```
 
-Use an existing project:
+### Use an existing project
 
 ```terraform
 module "atlas_basic" {
@@ -114,6 +89,47 @@ module "atlas_basic" {
 }
 ```
 
+### Complete definition
+
+```terraform
+module "atlas-basic" {
+  source  = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
+  org_id = var.org_id
+  project_name = "my-project"
+  ip_addresses = ["1.2.3.4", "5.6.7.8"]
+  cidr_blocks = ["10.1.0.0/16", "12.2.0.0/16"]
+  database_users = [
+    {
+      username = "user1"
+      password = "1234"
+      roles = [
+        {
+          role = "atlasAdmin"
+          database = "admin"
+        }
+      ]
+      scopes = [
+        {
+          name = "cluster1"
+          type = "CLUSTER"
+        }
+      ]
+    }
+  ]
+  cluster_name = "mycluster"
+  provider_name = "GCP"
+  region_name = "US_EAST_4"
+  electable_specs = {
+   instance_size = "M10"
+  }
+  analytics_specs = {
+   instance_size = "M10"
+  }
+}
+```
+
+
+
 The [examples](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-atlas-basic/tree/main/examples) folder contains detailed examples that show how to use this module.
 
 ## Resources
@@ -129,23 +145,25 @@ The module creates the following resources:
 
 If you want more information about the MongoDB Atlas Terraform provider, refer to the [documentation](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs) published on the Terraform Public Registry.
 
-## Cluster Creation Considerations 
+## Cluster Creation Considerations
 
 The `atlas-basic` module only supports the Replica Set cluster type. This setup is straightforward to manage and involves fewer components and configuration steps, making it ideal for users who are new to MongoDB or those needing a quick and simple deployment. Additionally, Replica Set is the most common type of cluster.
 
 ### Supported Cloud Providers
 
-MongoDB Atlas clusters support several cloud service providers for server provisioning. The possible values are: 
+MongoDB Atlas clusters support several cloud service providers for server provisioning. The possible values are:
 
 - Amazon AWS (the one we chose as default for this module)
 - Google Cloud Platform
 - Microsoft Azure
 - Multi-tenant cluster (free tier cluster)
 
-If specifying a provider other than the default, you must also specify the region name, as not all providers support the same regions. See the reference list for [AWS](https://www.mongodb.com/docs/atlas/reference/amazon-aws/), [GCP](https://www.mongodb.com/docs/atlas/reference/google-gcp/), [AZURE](https://www.mongodb.com/docs/atlas/reference/microsoft-azure/). 
+If specifying a provider other than the default, you must also specify the region name, as not all providers support the same regions. See the reference list for [AWS](https://www.mongodb.com/docs/atlas/reference/amazon-aws/), [GCP](https://www.mongodb.com/docs/atlas/reference/google-gcp/), [AZURE](https://www.mongodb.com/docs/atlas/reference/microsoft-azure/).
 
 For TENANT clusters:
-  - Analytics nodes cannot be defined due to resource limitations and cost management considerations.
+
+- Analytics nodes cannot be defined due to resource limitations and cost management considerations.
+
 The instance size of the electable nodes must be M0 which is the free tier of MongoDB Atlas clusters.
 
 ## License
