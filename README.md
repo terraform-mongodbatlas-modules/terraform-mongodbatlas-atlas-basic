@@ -1,5 +1,7 @@
 # Atlas Basic Terraform Module
 
+> **Archived:** This repository is no longer maintained. Use the [project](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-project) and [cluster](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-cluster) modules from the [terraform-mongodbatlas-modules](https://github.com/terraform-mongodbatlas-modules/) organization instead. For up-to-date Terraform examples and reference implementations, see [atlas-examples](https://github.com/terraform-mongodbatlas-modules/atlas-examples).
+
 This Terraform module creates a basic setup on [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database).
 
 You can find detailed information of the module's input and output variables in the [Terraform Public Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/atlas-basic/mongodbatlas/latest).
