@@ -2,6 +2,114 @@
 
 > **Archived:** This repository is no longer maintained. Use the [project](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-project) and [cluster](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-cluster) modules from the [terraform-mongodbatlas-modules](https://github.com/terraform-mongodbatlas-modules/) organization instead. For up-to-date Terraform examples and reference implementations, see [atlas-examples](https://github.com/terraform-mongodbatlas-modules/atlas-examples).
 
+## Migration
+
+Replace your module source with the [project](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-project) and [cluster](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-cluster) modules. Database users are not yet supported by the landing zone modules, so keep them as root resources.
+
+```hcl
+# Before
+module "atlas_basic" {
+  source  = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
+  version = "1.0.0"
+  org_id  = var.org_id
+
+  project_name = "my-project"
+  ip_addresses = ["1.2.3.4", "5.6.7.8"]
+  cidr_blocks  = ["10.1.0.0/16", "12.2.0.0/16"]
+
+  database_users = [
+    {
+      username = "user1"
+      password = var.user_password
+      roles = [{ role = "atlasAdmin", database = "admin" }]
+    }
+  ]
+
+  cluster_name  = "mycluster"
+  provider_name = "AWS"
+  region_name   = "US_EAST_1"
+  electable_specs = {
+    instance_size = "M10"
+    node_count    = 3
+  }
+}
+
+# After
+module "atlas_project" {
+  source = "terraform-mongodbatlas-modules/project/mongodbatlas"
+  name   = "my-project"
+  org_id = var.org_id
+
+  ip_access_list = [
+    { source = "1.2.3.4" },
+    { source = "5.6.7.8" },
+    { source = "10.1.0.0/16" },
+    { source = "12.2.0.0/16" },
+  ]
+}
+
+module "atlas_cluster" {
+  source = "terraform-mongodbatlas-modules/cluster/mongodbatlas"
+
+  project_id   = module.atlas_project.id
+  name         = "mycluster"
+  cluster_type = "REPLICASET"
+  provider_name = "AWS"
+  auto_scaling = {
+    compute_enabled = false
+  }
+  regions = [
+    {
+      name          = "US_EAST_1"
+      node_count    = 3
+      instance_size = "M10"
+    },
+  ]
+}
+
+resource "mongodbatlas_database_user" "user1" {
+  username           = "user1"
+  password           = var.user_password
+  project_id         = module.atlas_project.id
+  auth_database_name = "admin"
+
+  roles {
+    role_name     = "atlasAdmin"
+    database_name = "admin"
+  }
+}
+```
+
+Variable mapping:
+
+| Before (`atlas-basic`) | After |
+| --- | --- |
+| `project_name`, `org_id` | `module.atlas_project.name`, `module.atlas_project.org_id` |
+| `use_existing_project = true` | `module.atlas_project.project_id` ([reference mode](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-project/tree/main/examples/reference_mode)) |
+| `ip_addresses`, `cidr_blocks` | `module.atlas_project.ip_access_list` |
+| `cluster_name` | `module.atlas_cluster.name` |
+| `provider_name` (AWS/GCP/AZURE) | `module.atlas_cluster.provider_name` |
+| `region_name` | `module.atlas_cluster.regions[].name` |
+| `electable_specs.instance_size` | `module.atlas_cluster.regions[].instance_size` |
+| `electable_specs.node_count` | `module.atlas_cluster.regions[].node_count` |
+| `analytics_specs` | `module.atlas_cluster.regions[].node_count_analytics`, `instance_size_analytics` |
+| `provider_name = TENANT`, `backing_provider_name` | Not supported by the cluster module; keep `mongodbatlas_advanced_cluster` |
+| `database_users` | `mongodbatlas_database_user` (root resource; not yet in landing zone modules) |
+
+For analytics nodes, existing projects, and free tier clusters, see the example READMEs in this repository.
+
+## Links
+
+- [project on Terraform Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/project/mongodbatlas/latest)
+- [project on GitHub](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-project)
+- [cluster on Terraform Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/cluster/mongodbatlas/latest)
+- [cluster on GitHub](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-cluster)
+- [reference mode example](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-project/tree/main/examples/reference_mode)
+- [development cluster example](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-cluster/tree/main/examples/08_development_cluster)
+- [cluster with analytics nodes example](https://github.com/terraform-mongodbatlas-modules/terraform-mongodbatlas-cluster/tree/main/examples/03_cluster_with_analytics_nodes)
+
+# Old Docs
+
 This Terraform module creates a basic setup on [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database).
 
 You can find detailed information of the module's input and output variables in the [Terraform Public Registry](https://registry.terraform.io/modules/terraform-mongodbatlas-modules/atlas-basic/mongodbatlas/latest).
